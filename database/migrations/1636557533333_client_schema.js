@@ -11,7 +11,8 @@ class ClientSchema extends Schema {
         .unsigned()
         .references("id")
         .inTable("users")
-        .notNullable();
+        .notNullable()
+        .onDelete("CASCADE");
       table.string("address", 200).notNullable();
       table.integer("age").unsigned();
       table.integer("weight").unsigned();
