@@ -17,13 +17,16 @@
   "private": true,
   "dependencies": {
     "@adonisjs/ace": "^5.0.8",
+    "@adonisjs/application": "^5.0.0",
     "@adonisjs/auth": "^3.0.7",
-    "@adonisjs/bodyparser": "~2.0.9",
+    "@adonisjs/bodyparser": "^2.0.9",
     "@adonisjs/cors": "^1.0.7",
     "@adonisjs/fold": "^4.0.9",
     "@adonisjs/framework": "^5.0.9",
+    "@adonisjs/http-server": "^5.0.0",
     "@adonisjs/ignitor": "^2.0.8",
     "@adonisjs/lucid": "^6.3.0",
+    "@adonisjs/validator": "^5.1.0",
     "mssql": "^7.2.1",
     "tedious": "^14.0.0"
   },

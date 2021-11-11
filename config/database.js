@@ -93,6 +93,30 @@ module.exports = {
   | npm i --save tedious
   |
   */
+  mssql: {
+    client: "mssql",
+    connection: {
+      host: Env.get("DB_HOST"),
+      port: Number(Env.get("DB_PORT")),
+      user: Env.get("DB_USER"),
+      password: Env.get("DB_PASSWORD"),
+      database: Env.get("DB_DATABASE1"),
+    },
+    connectionTimeout: 2147483647,
+    requestTimeout: 2147483647,
+    pool: {
+      idleTimeoutMillis: 2147483647,
+      max: 100,
+    },
+    options: {
+      enableArithAbort: false,
+      encrypt: Env.get("NODE_ENV") === "production",
+      packetSize: 102400,
+      trustServerCertificate: Env.get("NODE_ENV") === "production",
+      useUTC: false,
+    },
+  },
+  debug: Env.get("DB_DEBUG", false),
 
   mssql1: {
     client: "mssql",
