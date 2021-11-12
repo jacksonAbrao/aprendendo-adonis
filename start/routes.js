@@ -6,11 +6,8 @@ Route.get("/", () => {
   return { status: "online" };
 });
 
-// Route.get("/users", "UserController.index");
-// Route.get("/users/:id", "UserController.show");
-// Route.post("/users", "UserController.store");
-// Route.put("/users/:id", "UserController.update");
-// Route.delete("/users/:id", "UserController.destroy");
+Route.post("/sessions", "SessionController.create");
+Route.put("/sessions", "SessionController.refreshToken");
 
 Route.resource("users", "UserController")
   .apiOnly()
@@ -19,7 +16,15 @@ Route.resource("users", "UserController")
       [["users.store"], ["user"]],
       [["users.update"], ["user"]],
     ])
-  );
-Route.resource("clients", "ClientController").apiOnly();
-Route.resource("trainings", "TrainingController").apiOnly();
-Route.resource("exercises", "ExerciseController").apiOnly();
+  )
+  .middleware("auth:jwt");
+
+Route.resource("clients", "ClientController").apiOnly().middleware("auth:jwt");
+
+Route.resource("trainings", "TrainingController")
+  .apiOnly()
+  .middleware("auth:jwt");
+
+Route.resource("exercises", "ExerciseController")
+  .apiOnly()
+  .middleware("auth:jwt");
