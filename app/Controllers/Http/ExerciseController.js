@@ -1,6 +1,7 @@
 "use strict";
 
 const Exercise = use("App/Models/Exercise");
+const Helpers = use("Helpers");
 
 class ExerciseController {
   async index() {
@@ -12,13 +13,34 @@ class ExerciseController {
     return exercise;
   }
 
-  async store({ request }) {
+  async store({ request, response }) {
     const data = request.only([
       "name",
       "observation",
       "series",
       "waiting_time",
     ]);
+
+    const photo = request.file("image", {
+      types: ["image"],
+      size: "2mb",
+    });
+
+    if (photo) {
+      const image = await Exercise.findBy("url_image", photo.clientName);
+      if (image) {
+        return response.status(400).send({
+          error: {
+            message: "Imagem já existe",
+            name: "DuplicateImage",
+          },
+        });
+      }
+      await photo.move(Helpers.publicPath("exercises"));
+      data.url_image = photo.clientName;
+    }
+
+    console.log(request.input("action_by"));
 
     const exercise = await Exercise.create(data);
     return exercise;
